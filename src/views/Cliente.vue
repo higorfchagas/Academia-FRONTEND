@@ -2,7 +2,7 @@
 <template>
   <div style="text-align:center;">
     <h1>Cadastrar cliente</h1>
-    <div class="row">
+    <div class="row form-group">
       <div class="col-md-3"></div>
       <div class="col-md-6">
         <form>
@@ -23,33 +23,51 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Entrar</button>
+          <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
       </div>
       <div class="col-md-3"></div>
     </div>
-
-    <tr v-for="cliente in Clientes" :key="cliente.id">
-      <td>Nome</td>
-      <td>Nascimento</td>
-      <td>Email</td>
-    </tr>
+    <div class="row form-group">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Nascimento</th>
+              <th scope="col">Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="cliente in Clientes" :key="cliente.id">
+              <td>{{cliente.nome}}</td>
+              <td>{{cliente.nascimento}}</td>
+              <td>{{cliente.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
   </div>
 </template>
 
 <script>
-
-
-export default
-{
-
-mounted(){
-
-
-},
-
-}
-
+import Cliente from "../services/clientes";
+export default {
+  data() {
+    return {
+      Clientes: []
+    };
+  },
+  mounted() {
+    Cliente.Listar().then(resposta => {
+      console.log(resposta);
+      this.Clientes = resposta.data;
+    });
+  }
+};
 </script>
 
 <style scoped>
