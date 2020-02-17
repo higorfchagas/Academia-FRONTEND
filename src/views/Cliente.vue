@@ -66,7 +66,10 @@ export default {
       console.log(resposta);
       this.Clientes = resposta.data;
     });
-  }
+  },
+  methods(){
+
+  },
 };
 </script>
 
